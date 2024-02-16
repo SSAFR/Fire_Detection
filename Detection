@@ -1,0 +1,19 @@
+import cv2
+import numpy as np
+from playsound import playsound
+
+cap = cv2.VideoCapture(0)
+
+lower_red = np.array([0, 120, 70])
+upper_red = np.array([10, 255, 255])
+
+alert_flag = False
+cooldown_frames = 100
+current_cooldown = cooldown_frames
+min_contour_area = 1000
+
+while True:
+     ret, frame = cap.read()
+     if not ret:
+          break
+     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
